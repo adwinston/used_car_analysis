@@ -163,6 +163,6 @@ cython_debug/
 
 
 # Data formats
-.csv
-.parquet
-.zip
+*.csv
+*.parquet
+*.zip
