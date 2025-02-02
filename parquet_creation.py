@@ -1,20 +1,25 @@
-import polars as pl
 import pandas as pd
 import numpy as np
-from config import main
-
+from config import main_loc
+pd.set_option('display.max_columns', None)
 #%% Read data and understand preliminary details
-
-data = pl.read_csv(rf'{main}\data\used_cars_data.csv',
-                   infer_schema_length=None)
+data = pd.read_csv(rf'{main_loc}/data/used_cars_data.csv')
 
 data.describe
 data.columns
 data.dtypes
-# Check count of columns in data type group
-dtyplist = pl.DataFrame(data.dtypes)
-dtyplist.group_by('column_0').count()
+unique_vals = data.nunique()
+unique_vals[:25]
+unique_vals[25:50]
+unique_vals[50:]
+data.isna().sum()
+data.iloc[:, :10].head(10)
+
+#%% Remove uncessary features for prediction and causal inference
+
+remove_list = ['vin', '']
+
 #%% Clean data and change data types for inference and better data compression
 
 # Clean categorical variables, determine which need to stay as strings,
-# Modify the precision of certain number types for compression
+# Modify the precision of certain number types for compression``
