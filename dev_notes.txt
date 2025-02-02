@@ -7,3 +7,4 @@ Ideas for causal inference: Try and determine what the impact of car color is on
 addition to the outcome variable of price. Try modelling the probability of the car being a specific color.
 
 
+Stopped at analyzing city, need to continue variable review
