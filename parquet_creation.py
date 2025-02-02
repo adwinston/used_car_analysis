@@ -1,9 +1,13 @@
 import pandas as pd
 import numpy as np
-from config import main_loc
+from helper_funcs import main_selector
+
 pd.set_option('display.max_columns', None)
+
 #%% Read data and understand preliminary details
-data = pd.read_csv(rf'{main_loc}/data/used_cars_data.csv')
+main_loc = main_selector()
+
+data = pd.read_csv(rf'{main_loc}\data\used_cars_data.csv')
 
 data.describe
 data.columns
