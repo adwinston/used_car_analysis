@@ -19,7 +19,7 @@ unique_vals[50:]
 data.isna().sum()
 data.iloc[:, :10].head(10)
 
-#%% Remove uncessary features for prediction and causal inference
+#%% Remove uncessary features for prediction and causal inference, this will help reduce file size and complexity
 
 remove_list = ['vin', '']
 
