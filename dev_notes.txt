@@ -1,0 +1,9 @@
+Bed mainly includes nan, this probably correlates with sedans. Check this
+Bed_length will need to be parsed to generalize the bed length into a few categories
+
+
+
+Ideas for causal inference: Try and determine what the impact of car color is on used car price. Treatment is car color and will need to be model in
+addition to the outcome variable of price. Try modelling the probability of the car being a specific color.
+
+

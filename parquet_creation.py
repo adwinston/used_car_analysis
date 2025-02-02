@@ -21,7 +21,7 @@ data.iloc[:, :10].head(10)
 
 #%% Remove uncessary features for prediction and causal inference, this will help reduce file size and complexity
 
-remove_list = ['vin', '']
+remove_list = ['vin', 'bed_height', ]
 
 #%% Clean data and change data types for inference and better data compression
 
