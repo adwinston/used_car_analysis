@@ -7,7 +7,9 @@ pd.set_option('display.max_columns', None)
 #%% Read data and understand preliminary details
 main_loc = main_selector()
 
-data = pd.read_csv(rf'{main_loc}\data\used_cars_data.csv')
+# Need to dynamically change the backslashes in the code between mac
+# and windows, or find universal character
+data = pd.read_csv(rf'{main_loc}/data/used_cars_data.csv')
 
 data.describe
 data.columns
@@ -21,9 +23,9 @@ data.iloc[:, :10].head(10)
 
 #%% Remove uncessary features for prediction and causal inference, this will help reduce file size and complexity
 
-remove_list = ['vin', 'bed_height', 'city']
+remove_list = ['vin', 'bed_height', 'city', 'combine_fuel_economy', 'description']
 
 #%% Clean data and change data types for inference and better data compression
 
 # Clean categorical variables, determine which need to stay as strings,
-# Modify the precision of certain number types for compression``
+# Modify the precision of certain number types for compression
