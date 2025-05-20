@@ -20,3 +20,5 @@ On a seperate note, could do an analysis of what the percent of given franchise 
 is comes from their brand vs from another brand, and also of the car's that are not their brand,
 how many come from the same or different 'class' of mainstream vehicle.
 
+Keep fuel_type and filter for only Gasoline and Diesel vehicles to remove noise from the
+training data set 
