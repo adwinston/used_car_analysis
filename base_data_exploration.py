@@ -24,9 +24,6 @@ unique_vals[50:]
 data.isna().sum()
 data.iloc[:, :10].head(10)
 
-#%% Remove uncessary features for prediction and causal inference, this will help reduce file size and complexity
-
-
 economy_group = ['Hyundai', 'Nissan', 'Kia', 'FIAT', 'Mitsubishi', 'Scion', 'Saturn',
                  'Suzuki', 'Isuzu']
 mainstream_group = ['Jeep', 'Subaru', 'Mazda', 'Chevrolet', 'Chrysler', 'Dodge', 
@@ -43,20 +40,37 @@ conditions = [data['make_name'].isin(economy_group), data['make_name'].isin(main
               data['make_name'].isin(premium_group), data['make_name'].isin(luxury_group),
               data['make_name'].isin(ultra_luxury)]
 choices = ['economy', 'mainstream', 'premium', 'luxury', 'ultra_luxury']
-
 data['group'] = np.select(conditions, choices, default='NA')
 data = data[data['group'] != 'NA']
+
+#%%
 used_dealer_makeup = data.groupby(by=['franchise_make', 'group']).count()['vin'].reset_index()
 franchise_car_count = used_dealer_makeup.groupby(by=['franchise_make'])['vin'].sum()
-used_dealer_makeup= used_dealer_makeup.merge(right=franchise_car_count, left_on=['franchise_make'], right_on='franchise_make')
-used_dealer_makeup.rename(mapper={'vin_x' : 'vehicle_count', 'vin_y' : 'total_franchise_vehicle_count'},
-                          axis=1, inplace=True)
+top_10_vol_franchise = franchise_car_count.sort_values(ascending=False).iloc[:10]
+top_11_20_vol_franchise = franchise_car_count.sort_values(ascending=False).iloc[11:21]
+
+
+pivoted_data = used_dealer_makeup.pivot_table(values='vin', index='franchise_make', aggfunc=np.sum, columns='group')
+pivoted_data = pivoted_data.reset_index().rename_axis(None, axis=1).set_index('franchise_make')
+pivoted_data['total_count'] = np.sum(pivoted_data, axis=1)
+pivoted_data.sort_values(by='total_count', axis=0, ascending=False, inplace=True)
+pivoted_data.drop(columns=['total_count'], inplace=True)
+
+# Top 10 franchise graph
+pivoted_data[pivoted_data.index.isin(top_10_vol_franchise.index)].plot(kind='bar', stacked=True)
+
+# Top 11-20 franchise graph
+pivoted_data[pivoted_data.index.isin(top_11_20_vol_franchise.index)].plot(kind='bar', stacked=True)
+
+# All franchise graph
+pivoted_data.plot(kind='bar', stacked=True)
 #%% Create some EDA graphs to explain assumptions being made in the data
 
 Plotly graph of fuel economy and horsepower
 
 graph or table breaking down relationship between dealer and the vehicles classes they are selling
 # Do a stacked bar chart for the top 10 franchises by used car count
+# %%
 
 
 basic boxplot showing distribution of car price with color
