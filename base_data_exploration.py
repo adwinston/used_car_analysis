@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import seaborn as sns
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import plotly.express as px
 from helper_funcs import main_selector
 import os
@@ -64,6 +64,23 @@ pivoted_data[pivoted_data.index.isin(top_11_20_vol_franchise.index)].plot(kind='
 
 # All franchise graph
 pivoted_data.plot(kind='bar', stacked=True)
+
+# Array of make to make
+array_of_franchise_make = data.groupby(by=['franchise_make', 'make_name'], as_index=True)['vin'].count().reset_index()
+array_of_franchise_make = array_of_franchise_make[array_of_franchise_make['vin'] >= 1000]
+array_of_franchise_make['vin'] = array_of_franchise_make['vin'] / 10000
+array_of_franchise_make = array_of_franchise_make.pivot(index='franchise_make', columns='make_name', values='vin').fillna(0).reset_index().rename_axis(None, axis=1).set_index('franchise_make')
+ax = plt.figure(figsize=(20,20))
+sns.heatmap(array_of_franchise_make, annot=True)
+
+
+array_of_franchise_make_2 = data.groupby(by=['franchise_make', 'make_name'], as_index=True)['vin'].count().reset_index()
+array_of_franchise_make_2 = array_of_franchise_make_2[array_of_franchise_make_2['vin'] >= 1000]
+array_of_franchise_make_2 = array_of_franchise_make_2.assign(vin = np.log(array_of_franchise_make_2['vin']))
+array_of_franchise_make_2 = array_of_franchise_make_2.pivot(index='franchise_make', columns='make_name', values='vin').fillna(0).reset_index().rename_axis(None, axis=1).set_index('franchise_make')
+
+ax = plt.figure(figsize=(20,20))
+sns.heatmap(array_of_franchise_make_2, annot=True)
 #%% Create some EDA graphs to explain assumptions being made in the data
 
 Plotly graph of fuel economy and horsepower
