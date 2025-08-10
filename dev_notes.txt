@@ -22,3 +22,5 @@ how many come from the same or different 'class' of mainstream vehicle.
 
 Keep fuel_type and filter for only Gasoline and Diesel vehicles to remove noise from the
 training data set 
+
+Horsepower is going to need some type of feature imputation to work

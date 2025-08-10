@@ -7,24 +7,9 @@ pd.set_option('display.max_columns', None)
 
 #%% Read data and understand preliminary details
 main_loc = main_selector()
-
-# Need to dynamically change the backslashes in the code between mac
-# and windows, or find universal character
 data = pd.read_csv(main_loc + os.path.normpath(config.base_data_loc))
-data.describe
-data.columns
-data.dtypes
-unique_vals = data.nunique()
-unique_vals[:25]
-unique_vals[25:50]
-unique_vals[50:]
-data.isna().sum()
-data.iloc[:, :10].head(10)
 
 #%% Remove uncessary features for prediction and causal inference, this will help reduce file size and complexity
-used_dealer_makeup = data.groupby(['franchise_make', 'make_name']).count()['vin'].reset_index()
-
-
 
 economy_group = ['Hyundai', 'Nissan', 'Kia', 'FIAT', 'Mitsubishi', 'Scion', 'Saturn',
                  'Suzuki', 'Isuzu']
