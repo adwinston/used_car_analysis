@@ -7,6 +7,7 @@ import plotly.io as pio
 from helper_funcs import main_selector
 import os
 import config
+
 pd.set_option('display.max_columns', None)
 pio.renderers.default = 'plotly_mimetype+notebook'
 
@@ -21,13 +22,17 @@ data.dtypes
 #%% Brand groupings for ease of data exploration
 economy_group = ['Hyundai', 'Nissan', 'Kia', 'FIAT', 'Mitsubishi', 'Scion', 'Saturn',
                  'Suzuki', 'Isuzu']
+
 mainstream_group = ['Jeep', 'Subaru', 'Mazda', 'Chevrolet', 'Chrysler', 'Dodge', 
                     'Honda', 'Ford', 'Volkswagen', 'RAM', 'Toyota', 'Buick', 'Mercury', 'Pontiac',
-                    'smart', ]
+                    'smart']
+
 premium_group = ['Land Rover', 'Alfa Romeo', 'Acura', 'Lexus', 'Cadillac', 'Lincoln', 'Jaguar',
                  'INFINITI', 'GMC', 'Volvo', 'Saab', 'MINI', 'Genesis', 'Tesla', 'Hummer', 'SRT']
+
 luxury_group = ['BMW', 'Mercedes-Benz', 'Audi', 'Porsche', 'Maserati', 'Fisker', 'Lotus',
                 'Karma', 'Ariel']
+
 ultra_luxury = ['Ferrari', 'Bentley', 'Lamborghini', 'Rolls-Royce', 'Spyker', 'McLaren',
                 'Aston Martin', 'Maybach', 'Pagani', 'Pininfarina', 'Bugatti', 'Koenigsegg']
 
@@ -85,9 +90,15 @@ fig = px.scatter(data_frame=sample_frame, x='horsepower', y='highway_fuel_econom
                  hover_data=['make_name', 'model_name', 'engine_type'])
 fig.show()
 
-graph or table breaking down relationship between dealer and the vehicles classes they are selling
-# Do a stacked bar chart for the top 10 franchises by used car count
-# %%
+#%% basic boxplot showing distribution of car price with color
+data[data['price'] <= 500000].groupby(by=['listing_color']).agg({'price' : ['mean', 'median']})
+ax = plt.figure(figsize=(20,10))
+sns.boxplot(data=data[data['price'] <= 500000], x='listing_color', y='price')
 
-
-basic boxplot showing distribution of car price with color
+# Run an ANOVA test
+# Can I prove that they means are statistically different? Then the question becomes, but why? The causal part.
+# Make a couple visuals that show some confounding going on with potential car color
+# Can make focus on car year and then loop in some research from the internet on how
+# car colors have trended over time. That way I can create the link between real world
+# shifts that intefere with the valuation of car colors. Are they different because the
+# brown cars are older on average or because of the color brown itself?

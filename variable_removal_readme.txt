@@ -10,7 +10,7 @@ city: Removing due to high dimensionality, could be parsed in the future to gene
 combine_fuel_economy: The entire column was null
 description: Can get other vital information from other variables. Can revisit and attempt to parse in the future
 engine_type: Removing this because it holds the exact same information as the engine_cylinders variable.
-exterior_color: Removing as there are too many permutations for the analysis that wants to be done. Listing Color is a bette alternative.
+exterior_color: Removing as there are too many permutations for the analysis that wants to be done. Listing Color is a better alternative.
 franchise_make: Could use to try and infer make, but that is already provided, so will remove this
 high dimension variable.
 front_legroom: Will infer vehicle class, from presence of truck bed or not, plus vehicle length, and 
